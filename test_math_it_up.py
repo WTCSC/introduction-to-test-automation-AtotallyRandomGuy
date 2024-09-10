@@ -1,5 +1,6 @@
 import pytest
-import math_it_up
+import os
+from math_it_up import is_even, is_odd, mean, median, mode
 
 """
 This file contains the tests for the math_it_up module, which contains the
@@ -27,27 +28,30 @@ To run the tests, run `pytest` from the command line in the same directory as
 this file.
 """
 
-def test_is_even():
-  """
-  Tests for the `is_even` function
-  """
+@pytest.mark.parametrize("input,expected", [(2, True), (3, False), (4, True)])
+def test_is_even(input, expected):
+    assert is_even(input) == expected
 
-def test_is_odd():
-  """
-  Tests for the `is_odd` function
-  """
+@pytest.mark.parametrize("input,expected", [(2, False), (3, True), (4, False)])
+def test_is_odd(input, expected):
+    assert is_odd(input) == expected
 
-def test_mean():
-  """
-  Tests for the `mean` function
-  """
+@pytest.fixture
+def list():
+  return [1, 2, 4, 8, 16, 32]
 
-def test_median():
-  """
-  Tests for the `median` function
-  """
+def test_mean(list):
+  assert mean(list) == 10.5
 
-def test_mode():
-  """
-  Tests for the `mode` function
-  """
+
+@pytest.fixture
+def lists():
+  return [10, 5, 20, 60, 40, 30, 50]
+def test_median(lists):
+    assert median(lists) == 30
+
+@pytest.fixture
+def listed():
+  return [1, 4, 2, 4, 5, 4, 10]
+def test_mode(listed):
+    assert mode(listed) == [4]
